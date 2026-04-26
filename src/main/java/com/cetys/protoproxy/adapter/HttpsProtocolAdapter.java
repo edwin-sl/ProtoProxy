@@ -1,26 +1,22 @@
 package com.cetys.protoproxy.adapter;
 
 import com.cetys.protoproxy.Protocols;
-import com.cetys.protoproxy.dto.HttpRequest;
-import com.cetys.protoproxy.dto.ProtoRequest;
-import com.cetys.protoproxy.dto.ProxyRequest;
-import com.cetys.protoproxy.dto.ProxyResponse;
-import java.net.http.HttpResponse;
-import java.net.http.HttpClient;
+import com.cetys.protoproxy.dto.*;
 import org.springframework.stereotype.Component;
-import org.springframework.web.client.RestClientException;
+import java.net.http.HttpClient;
+import java.net.http.HttpResponse;
 
 @Component
-public class HttpProtocolAdapter extends ProtocolAdapter {
+public class HttpsProtocolAdapter extends ProtocolAdapter {
 
-    public HttpProtocolAdapter() {
+    public HttpsProtocolAdapter() {
     }
 
     @Override
     public ProxyResponse execute(ProxyRequest request) {
 
         try {
-            HttpRequest httpRequestData = HttpRequest.fromProxyRequest(request);
+            HttpsRequest httpRequestData = HttpsRequest.fromProxyRequest(request);
             // Build the URL
             String protocol = httpRequestData.getProtocol();
             String url = String.format("%s://%s:%d", protocol, httpRequestData.getUrl(), httpRequestData.getPort());
@@ -62,7 +58,7 @@ public class HttpProtocolAdapter extends ProtocolAdapter {
 
     @Override
     public String getProtocolName() {
-        return Protocols.HTTP.toString();
+        return Protocols.HTTPS.toString();
     }
 
     @Override
