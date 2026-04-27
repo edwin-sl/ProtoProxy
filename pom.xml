@@ -50,6 +50,13 @@
 			<artifactId>org.eclipse.paho.client.mqttv3</artifactId>
 			<version>1.2.5</version>
 		</dependency>
+		<!-- Source: https://mvnrepository.com/artifact/io.github.open-coap/coap-core -->
+		<dependency>
+			<groupId>io.github.open-coap</groupId>
+			<artifactId>coap-core</artifactId>
+			<version>6.33.0</version>
+			<scope>compile</scope>
+		</dependency>
 		<!-- Lombok for reducing boilerplate -->
 		<dependency>
 			<groupId>org.projectlombok</groupId>
