@@ -1,0 +1,30 @@
+name: Build Docker Image
+
+on:
+  push:
+    branches: [ "main" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v6
+
+    - name: Log in to GitHub Container Registry
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Build Docker image
+      run: |
+        IMAGE_NAME=ghcr.io/${{ github.repository }}/protoproxy:latest
+        docker build -t $IMAGE_NAME .
+
+    - name: Push Docker image
+      run: |
+        IMAGE_NAME=ghcr.io/${{ github.repository }}/spring-app:latest
+        docker push $IMAGE_NAME
