@@ -23,6 +23,9 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
+    - name: Checkout repository
+      uses: actions/checkout@v6
+
     - name: Download JAR artifact
       uses: actions/download-artifact@v7
       with:
