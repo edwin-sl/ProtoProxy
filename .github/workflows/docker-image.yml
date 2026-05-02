@@ -1,3 +1,11 @@
+# This workflow builds a Docker image and pushes it to GitHub Container Registry.
+# For more information, see https://docs.github.com/en/actions/publishing-packages/publishing-docker-images
+
+# This workflow uses actions that are not certified by GitHub.
+# They are provided by a third-party and are governed by
+# separate terms of service, privacy policy, and support
+# documentation.
+
 name: Build Docker Image
 
 on:
@@ -5,15 +13,22 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  maven-build:
+    uses: ./.github/workflows/maven-build.yml
+
+  docker-build:
+    needs: maven-build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v6
+    - name: Download JAR artifact
+      uses: actions/download-artifact@v7
+      with:
+        name: protoproxy-jar-artifact
+        path: target/
 
     - name: Log in to GitHub Container Registry
-      uses: docker/login-action@v3
+      uses: docker/login-action@v4
       with:
         registry: ghcr.io
         username: ${{ github.actor }}
@@ -26,5 +41,5 @@ jobs:
 
     - name: Push Docker image
       run: |
-        IMAGE_NAME=ghcr.io/${{ github.repository }}/spring-app:latest
+        IMAGE_NAME=ghcr.io/${{ github.repository }}/protoproxy:latest
         docker push $IMAGE_NAME
