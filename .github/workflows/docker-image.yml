@@ -38,10 +38,10 @@ jobs:
 
     - name: Build Docker image
       run: |
-        IMAGE_NAME=ghcr.io/${{ github.repository }}/protoproxy:latest
+        IMAGE_NAME=ghcr.io/protoproxy/protoproxy-server:latest
         docker build -t $IMAGE_NAME .
 
     - name: Push Docker image
       run: |
-        IMAGE_NAME=ghcr.io/${{ github.repository }}/protoproxy:latest
+        IMAGE_NAME=ghcr.io/protoproxy/protoproxy-server:latest
         docker push $IMAGE_NAME
